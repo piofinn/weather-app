@@ -52,7 +52,7 @@ export const LocationCard: FC<LocationCardProps> = ({
   return (
     <Link
       to={`${latitude},${longitude}`}
-      className="min-w-[300px] flex flex-row flex-grow justify-between items-center rounded drop-shadow-sm py-6 px-4 bg-slate-50 text-lg hover:bg-white hover:drop-shadow-xl transition"
+      className="min-w-[250px] flex flex-row flex-grow justify-between items-center rounded drop-shadow-sm py-6 px-4 bg-slate-50 text-lg hover:bg-white hover:drop-shadow-xl transition"
     >
       <span className="text-slate-600 flex items-center">
         {currentLocation && (

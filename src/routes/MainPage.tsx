@@ -13,7 +13,7 @@ export const MainPage: FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-row flex-wrap gap-3 mt-8">
+    <div className="w-full max-w-6xl flex flex-row flex-wrap gap-3 mt-8">
       {userLocation ? (
         <LocationCard
           currentLocation
