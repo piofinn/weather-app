@@ -39,4 +39,5 @@ export type CurrentWeatherResult = {
     sunrise: number;
     sunset: number;
   };
+  timezone: number;
 };

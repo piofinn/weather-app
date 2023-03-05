@@ -1,0 +1,15 @@
+.wa-location-temperature {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+
+  &__condition {
+    font-size: 1.4rem;
+  }
+
+  &__current {
+    font-size: 4rem;
+  }
+}
