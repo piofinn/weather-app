@@ -28,20 +28,26 @@ export const LocationCard: FC<LocationCardProps> = ({
     String(longitude)
   );
 
-  if (isError) {
-    // TODO: Better error handling
-    return <p>Something went wrong</p>;
+  if (isError && !data) {
+    return (
+      <p>
+        Sorry, but we could not get the weather data for this location! Try
+        refreshing the page, or come back later.
+      </p>
+    );
+    // TODO: Better error handling for stale data/failed background fetch
   }
 
   return (
     <div className="wa-location-card">
       <h2 className="wa-location-card__location-name">
-        {isLoading
+        {/* Display stale data, or loading indicator if no data yet */}
+        {isLoading && !data
           ? "Loading..."
           : name || data.name || `${latitude}, ${longitude}`}
       </h2>
       <p className="wa-location-card__temperature">
-        {!isLoading && `${Math.round(data.main.temp * 10) / 10}℃`}
+        {!isLoading && data && `${Math.round(data.main.temp * 10) / 10}℃`}
       </p>
     </div>
   );
