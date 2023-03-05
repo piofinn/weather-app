@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { useCurrentWeather } from "../../api/api";
+import { useUserData } from "../../contexts/userData";
 import "./location-details.scss";
 import { LocationInfoItem } from "./LocationInfoItem";
 import { getLocalTime } from "./utils";
@@ -25,9 +26,11 @@ export const LocationDetails: FC<LocationDetailsProps> = ({
   longitude,
   name,
 }) => {
+  const { unitType } = useUserData();
   const { data, isError, isLoading } = useCurrentWeather(
     String(latitude),
-    String(longitude)
+    String(longitude),
+    unitType
   );
 
   if (isError && !data) {

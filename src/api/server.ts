@@ -20,7 +20,11 @@ export const getLocationName = async (lat: string, lon: string, limit = 1) =>
     `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=${limit}&appid=${API_KEY}`
   );
 
-export const getCurrentWeather = async (lat: string, lon: string) =>
+export const getCurrentWeather = async (
+  lat: string,
+  lon: string,
+  unitType = "metric"
+) =>
   makeSimpleFetchRequest<CurrentWeatherResult>(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`
+    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=${unitType}&appid=${API_KEY}`
   );

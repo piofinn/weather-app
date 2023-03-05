@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { useCurrentWeather } from "../../api/api";
+import { useUserData } from "../../contexts/userData";
 import "./location-card.scss";
 
 export type LocationCardProps = {
@@ -23,9 +24,11 @@ export const LocationCard: FC<LocationCardProps> = ({
   longitude,
   name,
 }) => {
+  const { unitType } = useUserData();
   const { data, isError, isLoading } = useCurrentWeather(
     String(latitude),
-    String(longitude)
+    String(longitude),
+    unitType
   );
 
   if (isError && !data) {
