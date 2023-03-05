@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { Link } from "react-router-dom";
 import { useCurrentWeather } from "../../api/api";
 import { useUserData } from "../../contexts/userData";
 import "./location-card.scss";
@@ -41,17 +42,22 @@ export const LocationCard: FC<LocationCardProps> = ({
     // TODO: Better error handling for stale data/failed background fetch
   }
 
+  const temp = !isLoading && Math.round(data.main.temp * 10) / 10;
+
   return (
-    <div className="wa-location-card">
-      <h2 className="wa-location-card__location-name">
+    <Link
+      to={`${latitude},${longitude}`}
+      className="flex flex-row justify-between rounded py-6 px-4 bg-slate-100 hover:bg-white-100 text-lg"
+    >
+      <h2 className="wa-location-card__location-name text-slate-600">
         {/* Display stale data, or loading indicator if no data yet */}
         {isLoading && !data
           ? "Loading..."
           : name || data.name || `${latitude}, ${longitude}`}
       </h2>
-      <p className="wa-location-card__temperature">
-        {!isLoading && data && `${Math.round(data.main.temp * 10) / 10}℃`}
-      </p>
-    </div>
+      <p
+        className={`${temp < 0 ? "text-blue-600" : "text-red-600"}`}
+      >{`${temp}℃`}</p>
+    </Link>
   );
 };
