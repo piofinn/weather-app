@@ -1,8 +1,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
-import { useCurrentWeather } from "../../api/api";
-import { useUserData } from "../../contexts/userData";
-import "./location-card.scss";
+import { useCurrentWeather } from "../api/api";
+import { useUserData } from "../contexts/userData";
 
 export type LocationCardProps = {
   /**
@@ -47,9 +46,9 @@ export const LocationCard: FC<LocationCardProps> = ({
   return (
     <Link
       to={`${latitude},${longitude}`}
-      className="flex flex-row justify-between rounded py-6 px-4 bg-slate-100 hover:bg-white-100 text-lg"
+      className="min-w-[300px] flex flex-row flex-grow justify-between rounded drop-shadow-sm py-6 px-4 bg-slate-50 text-lg hover:bg-white hover:drop-shadow-xl transition"
     >
-      <h2 className="wa-location-card__location-name text-slate-600">
+      <h2 className="text-slate-600">
         {/* Display stale data, or loading indicator if no data yet */}
         {isLoading && !data
           ? "Loading..."

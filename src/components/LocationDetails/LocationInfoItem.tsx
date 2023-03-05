@@ -9,8 +9,8 @@ export const LocationInfoItem: FC<LocationInfoItemProps> = ({
   description,
   title,
 }) => (
-  <div className="wa-info-item">
-    <dt className="wa-info-item__title">{title}</dt>
-    <dd className="wa-info-item__description">{description}</dd>
+  <div className="align-left">
+    <dt className="text-sm text-slate-600">{title}</dt>
+    <dd className="text-xl text-slate-800">{description}</dd>
   </div>
 );

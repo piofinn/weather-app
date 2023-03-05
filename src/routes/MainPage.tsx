@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react";
-import { LocationCard } from "../components/LocationCard/LocationCard";
+import { LocationCard } from "../components/LocationCard";
 import { useUserData } from "../contexts/userData";
 
 export const MainPage: FC = () => {
@@ -13,7 +13,7 @@ export const MainPage: FC = () => {
   }, []);
 
   return (
-    <>
+    <div className="flex flex-row flex-wrap gap-3 mt-8">
       {userLocation ? (
         <LocationCard
           latitude={userLocation.coords.latitude}
@@ -26,6 +26,6 @@ export const MainPage: FC = () => {
       {locations.map((location) => (
         <LocationCard key={location.latitude} {...location} />
       ))}
-    </>
+    </div>
   );
 };

@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { useCurrentWeather } from "../../api/api";
 import { useUserData } from "../../contexts/userData";
-import "./location-details.scss";
 import { LocationInfoItem } from "./LocationInfoItem";
 import { getLocalTime } from "./utils";
 
@@ -48,16 +47,18 @@ export const LocationDetails: FC<LocationDetailsProps> = ({
     return <p>Loading weather data...</p>;
   }
 
+  const temp = Math.round(data?.main.temp * 10) / 10;
+
   return (
-    <article className="wa-location-details">
-      <div className="wa-location-temperature">
-        <p className="wa-location-temperature__condition">
-          {data?.weather[0].main}
+    <article className="w-full flex-grow flex flex-col md:flex-row justify-evenly items-center">
+      <div className="flex flex-col items-center gap-2">
+        <p className="text-2xl text-slate-800">{data?.weather[0].main}</p>
+        <p
+          className={`${temp < 0 ? "text-blue-600" : "text-red-600"} text-8xl`}
+        >
+          {temp}℃
         </p>
-        <p className="wa-location-temperature__current">
-          {Math.round(data?.main.temp * 10) / 10}℃
-        </p>
-        <p className="wa-location-temperature__range">
+        <p className="text-base text-slate-600">
           <span aria-label="Highest expected temperature">H</span>:{" "}
           {Math.round(data.main.temp_max)}℃{" "}
           <span aria-label="Lowest expected temperature">L</span>:{" "}
@@ -65,7 +66,7 @@ export const LocationDetails: FC<LocationDetailsProps> = ({
         </p>
       </div>
       <aside>
-        <dl className="wa-location-info">
+        <dl className="grid grid-cols-2 grid-rows-2 gap-6">
           <LocationInfoItem
             title="Sunrise"
             description={getLocalTime(data.sys.sunrise * 1000)}

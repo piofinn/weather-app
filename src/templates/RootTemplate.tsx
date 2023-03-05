@@ -1,12 +1,11 @@
 import { FC } from "react";
 import { Outlet } from "react-router-dom";
-
-import "./root-template.scss";
+import { Header } from "../components/Header";
 
 export const RootTemplate: FC = () => (
-  <div className="wa-app">
-    <header className="wa-app__header">Dashboard</header>
-    <main className="wa-app__main">
+  <div className="min-h-screen width-full min-w-[100vw] flex flex-col bg-slate-200">
+    <Header />
+    <main className="flex flex-col items-start flex-grow px-8 py-4">
       <Outlet />
     </main>
   </div>
