@@ -1,6 +1,8 @@
 import { FC } from "react";
 import { useCurrentWeather } from "../../api/api";
 import "./location-details.scss";
+import { LocationInfoItem } from "./LocationInfoItem";
+import { getLocalTime } from "./utils";
 
 export type LocationDetailsProps = {
   /**
@@ -43,10 +45,6 @@ export const LocationDetails: FC<LocationDetailsProps> = ({
     return <p>Loading weather data...</p>;
   }
 
-  const testDate = new Date(data.sys.sunrise);
-  testDate.setSeconds(testDate.getSeconds() - data.timezone);
-  console.log(testDate.toLocaleTimeString());
-
   return (
     <article className="wa-location-details">
       <div className="wa-location-temperature">
@@ -56,7 +54,7 @@ export const LocationDetails: FC<LocationDetailsProps> = ({
         <p className="wa-location-temperature__current">
           {Math.round(data?.main.temp * 10) / 10}℃
         </p>
-        <p>
+        <p className="wa-location-temperature__range">
           <span aria-label="Highest expected temperature">H</span>:{" "}
           {Math.round(data.main.temp_max)}℃{" "}
           <span aria-label="Lowest expected temperature">L</span>:{" "}
@@ -65,34 +63,22 @@ export const LocationDetails: FC<LocationDetailsProps> = ({
       </div>
       <aside>
         <dl className="wa-location-info">
-          <div className="wa-info-item">
-            <dt className="wa-info-item__title">Sunrise</dt>
-            <dd className="wa-info-item__description">
-              {new Date(data.sys.sunrise * 1000).toLocaleTimeString(undefined, {
-                timeStyle: "short",
-              })}
-            </dd>
-          </div>
-          <div className="wa-info-item">
-            <dt className="wa-info-item__title">Sunset</dt>
-            <dd className="wa-info-item__description">
-              {new Date(data.sys.sunset * 1000).toLocaleTimeString(undefined, {
-                timeStyle: "short",
-              })}
-            </dd>
-          </div>
-          <div className="wa-info-item">
-            <dt className="wa-info-item__title">Humidity</dt>
-            <dd className="wa-info-item__description">
-              {data.main.humidity} %
-            </dd>
-          </div>
-          <div className="wa-info-item">
-            <dt className="wa-info-item__title">Visibility</dt>
-            <dd className="wa-info-item__description">
-              {data.visibility / 1000} km
-            </dd>
-          </div>
+          <LocationInfoItem
+            title="Sunrise"
+            description={getLocalTime(data.sys.sunrise * 1000)}
+          />
+          <LocationInfoItem
+            title="Sunset"
+            description={getLocalTime(data.sys.sunset * 1000)}
+          />
+          <LocationInfoItem
+            title="Humidity"
+            description={`${data.main.humidity} %`}
+          />
+          <LocationInfoItem
+            title="Visibility"
+            description={`${data.visibility / 1000} km`}
+          />
         </dl>
       </aside>
     </article>
