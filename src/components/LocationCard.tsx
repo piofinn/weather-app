@@ -17,12 +17,18 @@ export type LocationCardProps = {
    * location name received from the OpenWeather API, or the raw coordinates if no name is provided.
    */
   name?: string;
+  /**
+   * Signifies that this is the user's current location
+   * @default false
+   */
+  currentLocation?: boolean;
 };
 
 export const LocationCard: FC<LocationCardProps> = ({
   latitude,
   longitude,
   name,
+  currentLocation = false,
 }) => {
   const { unitType } = useUserData();
   const { data, isError, isLoading } = useCurrentWeather(
@@ -46,17 +52,22 @@ export const LocationCard: FC<LocationCardProps> = ({
   return (
     <Link
       to={`${latitude},${longitude}`}
-      className="min-w-[300px] flex flex-row flex-grow justify-between rounded drop-shadow-sm py-6 px-4 bg-slate-50 text-lg hover:bg-white hover:drop-shadow-xl transition"
+      className="min-w-[300px] flex flex-row flex-grow justify-between items-center rounded drop-shadow-sm py-6 px-4 bg-slate-50 text-lg hover:bg-white hover:drop-shadow-xl transition"
     >
-      <h2 className="text-slate-600">
+      <span className="text-slate-600 flex items-center">
+        {currentLocation && (
+          <span className="material-symbols-rounded text-[18px] mr-2">
+            {"\ue55c"}
+          </span>
+        )}
         {/* Display stale data, or loading indicator if no data yet */}
         {isLoading && !data
           ? "Loading..."
           : name || data.name || `${latitude}, ${longitude}`}
-      </h2>
-      <p
+      </span>
+      <span
         className={`${temp < 0 ? "text-blue-600" : "text-red-600"}`}
-      >{`${temp}℃`}</p>
+      >{`${temp}℃`}</span>
     </Link>
   );
 };

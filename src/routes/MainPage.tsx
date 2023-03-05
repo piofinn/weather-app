@@ -16,6 +16,7 @@ export const MainPage: FC = () => {
     <div className="flex flex-row flex-wrap gap-3 mt-8">
       {userLocation ? (
         <LocationCard
+          currentLocation
           latitude={userLocation.coords.latitude}
           longitude={userLocation.coords.longitude}
         />
